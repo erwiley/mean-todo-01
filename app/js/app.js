@@ -1,0 +1,15 @@
+angular.module("todoApp",["ngRoute","ngAnimate"])
+    .config(function($routeProvider){
+        $routeProvider
+        .when("/",{
+            templateUrl:"templates/todos.html",
+            controller:"todoCtrl"
+        })
+        .when("/contact",{
+            templateUrl:"templates/contact.html",
+            controller:"contactCtrl"
+        })
+        .otherwise({
+            redirectTo:"/"
+        });
+    });

@@ -1,0 +1,30 @@
+.ng-view.ng-enter,
+[ng-view].ng-enter{
+    transition: opacity 1.5s;
+    opacity: 0;
+}
+
+.ng-view.ng-enter-active,
+[ng-view].ng-enter-active{
+    opacity: 1;
+}
+
+#edit.ng-hide-add,
+#clear.ng-hide-add,
+#edit.ng-hide-remove,
+#clear.ng-hide-remove{
+    transition: opacity .5s;
+    opacity: 0;
+}
+
+#edit.ng-hide-remove-active,
+#clear.ng-hide-remove-active,
+#edit.ng-hide-add,
+#clear.ng-hide-add{
+    opacity: 1;
+}
+
+#edit.ng-hide-add-active,
+#clear.ng-hide-add-active{
+    opacity: 0;
+}
