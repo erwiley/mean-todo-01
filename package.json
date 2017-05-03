@@ -1,5 +1,5 @@
 {
-  "name": "todola",
+  "name": "todoapp",
   "version": "1.0.0",
   "engines": {
     "node": "6.10.0"
@@ -12,11 +12,10 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "express": "^4.15.2"
-  },
   "dependencies": {
     "body-parser": "^1.17.1",
-    "mongoose": "^4.9.5"
+    "bower": "^1.8.0",
+    "mongoose": "^4.9.5",
+    "express": "^4.15.2"
   }
 }
