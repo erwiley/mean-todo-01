@@ -1,15 +1,14 @@
 var express     = require("express");
-var app         = express();
+var path        = require('path');
 var bodyParser  = require("body-parser");
 var config      = require("./config");
 var mongoose    = require("mongoose");
-var router      = express.Router();
-var appRoutes   = require("./api")(router);
+var appRoutes   = require('./routes/api');
+var app         = express();
 
-app.use(express.static("app"));
+app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.json());
 app.use("/", appRoutes);
-
 
 //Connect to the database
 mongoose.connect(config.database,function(err){
