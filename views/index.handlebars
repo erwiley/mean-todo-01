@@ -1,0 +1,54 @@
+{{#if user}}
+<div class="row" ng-controller="todoCtrl">
+<div class="col-md-6 col-md-offset-3">
+<h1>Todo Application</h1>
+<hr>    
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>ToDo</th>
+            <th>&nbsp</th>
+            <th>&nbsp</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="todo in todos">
+            <td>
+                <input type="checkbox" ng-model="ticked">
+                <span class="todo-\{{ticked}}">\{{ todo.item }}</span>
+            </td>
+            <td class="pull-to-right">
+                <button class="btn btn-xs btn-danger" ng-show="ticked" ng-click="remove(todo._id)">
+                    <!-- <span class="glyphicon glyphicon-remove"></span> --><span>Remove</span>
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-xs btn-info" ng-show="ticked" ng-click="edit(todo._id)">
+                    <!-- <span class="glyphicon glyphicon-edit"></span> --><span>Edit</span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="total-todos pull-to-right">Total number of tasks<span class="badge">\{{getTotalTodos()}}</span>
+</p>
+
+<hr>
+
+<form action="" id="main-form">
+    <p class="chars-left">Remaining characters \{{left()}}</p>
+    <input type="text" ng-model="todo.item" maxlength="100" placeholder="Add new task" class="form-control">
+    <button class="btn btn-success btn-sm" ng-show="uiadd" ng-click="add()">Add</button>
+    <button class="btn btn-info btn-sm" id="edit" ng-show="uiedit" ng-click="save(todo._id)">Update</button>
+    <button class="btn btn-warning btn-sm" id="clear" ng-show="todo.item" ng-click="clear()">Clear</button>
+</form>
+</div>
+</div><!-- end ng-controller -->
+{{else}}
+<div class="jumbotron text-center">
+  <h1>Welcome</h1>
+  <p>Keep track of your todo tasks</p>
+  <p><a class="btn btn-primary btn-lg" href="users/login" role="button">Add Todo</a></p>
+</div>
+{{/if}}

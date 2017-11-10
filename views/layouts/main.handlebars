@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo Application</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    
+{{> _navbar}}
+
+<div class="container">
+    {{> _msg}}
+    {{> _errors}}
+    {{{body}}}   
+</div>
+
+<script type="text/javascript" src="/js/angular.js"></script>
+<script type="text/javascript" src="/js/controllers.js"></script>
+<script type="text/javascript" src="/js/todoFactory.js"></script>
+<script type="text/javascript" src="/directives/navbar.js"></script>
+</body>
+</html>

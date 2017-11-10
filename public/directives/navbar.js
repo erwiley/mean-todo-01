@@ -1,7 +1,7 @@
 angular.module("todoApp").directive("navbar",function(){
     return{
         restrict:"E",
-        templateUrl:"directives/navbar.html",
+        templateUrl:"/directives/navbar.html",
         scope:{
             navbarBrand:"@",
             menuItemOne:"@",

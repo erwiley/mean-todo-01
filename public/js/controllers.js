@@ -1,10 +1,9 @@
-angular.module("todoApp")
-    .controller("todoCtrl",["$scope","$log", "todoFactory","$timeout","global",
-        function($scope, $log, todoFactory, $timeout, global){
-
-            $scope.global = global;
+angular.module("todoApp",[])
+    .controller("todoCtrl",["$scope","$log", "todoFactory","$timeout",
+        function($scope, $log, todoFactory, $timeout){
             
-            $scope.title = "Hello App from Ctrl";
+            $scope.uiadd = true;
+            $scope.uiedit = false;
 
             var refresh = function(){
                 todoFactory.getTodos()
@@ -14,17 +13,18 @@ angular.module("todoApp")
                     $log.error(error);
                 });
             };
-            
             refresh();
 
             $scope.add = function(){
+                $scope.uiadd = true;
+                $scope.uiedit = false;
                 todoFactory.addTodo($scope.todo.item)
                     .then(function(response){
                         $scope.todo = undefined;
                         refresh();
                     },function(error){
                         $log.error(error);
-                    });      
+                    });
             };
 
             $scope.remove = function(id){
@@ -37,7 +37,8 @@ angular.module("todoApp")
             };
 
             $scope.edit = function(id){
-                $scope.toSave = true;
+                $scope.uiadd = false;
+                $scope.uiedit = true;
                 todoFactory.editTodo(id)
                     .then(function(response){
                         $scope.todo = response.data;
@@ -50,7 +51,8 @@ angular.module("todoApp")
                 todoFactory.saveTodo(id,$scope.todo.item)
                     .then(function(response){
                         $scope.todo = undefined;
-                        $scope.toSave = false;
+                        $scope.uiadd = true;
+                        $scope.uiedit = false;
                         refresh();
                     },function(error){
                         $log.error(error);
@@ -70,9 +72,4 @@ angular.module("todoApp")
                     return $scope.todos.length;
                 };
             }, 100);
-
-        }])          
-        .controller("contactCtrl",["$scope","global",function($scope, global){
-            $scope.global = global;
-            console.log("in contactCtrl");
         }]);
