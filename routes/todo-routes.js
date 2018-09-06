@@ -7,11 +7,26 @@ router.get("/", ensureAuthenticated, function(req,res){
     Todo.find({user:req.user.id})
         .sort({date:'desc'})
         .then((todos)=>{
-            res.json(todos);
-    });
+            res.render('todos/add',{todos:todos});
+        });
 });
 
-router.put("/", ensureAuthenticated, function(req,res){
+// Edit Idea Form
+router.get('/edit/:id', ensureAuthenticated, (req,res)=>{
+    Todo.findOne({_id:req.params.id})
+        .then((todo)=>{
+            if(todo.user != req.user.id){
+                req.flash('error_msg','Not Authorized');
+                res.redirect('/ideas');
+            }
+            else{
+                res.render('todos/edit',{todo:todo});
+            }
+        });
+});
+
+// New route
+router.post("/", ensureAuthenticated, function(req,res){
     const newData = {
         item: req.body.item,
         user: req.user.id
@@ -19,7 +34,34 @@ router.put("/", ensureAuthenticated, function(req,res){
     var newTodo = Todo(newData).save(function(err,data){
         if (err) throw err;
         req.flash('success_msg','New Todo Added');
-        res.json(data);
+        res.redirect('/todos');
+    });
+});
+
+/*
+ const newUser = {
+            title: req.body.title,
+            details: req.body.details,
+            user: req.user.id
+        }
+        new Idea(newUser)
+            .save()
+            .then((idea)=>{
+                req.flash('success_msg','Video Idea Added');
+                res.redirect('/ideas');
+            });
+*/
+
+// Edit Form process
+router.put('/:id', ensureAuthenticated, (req,res)=>{
+    Todo.findOne({_id:req.params.id})
+    .then((todo)=>{
+        // new values
+        todo.item = req.body.item;
+        todo.save().then((todo)=>{
+            req.flash('success_msg','ToDo Updated');
+            res.redirect('/todos');
+        });
     });
 });
 
@@ -27,22 +69,8 @@ router.delete("/:id", ensureAuthenticated, function(req,res){
     Todo.find({_id: req.params.id}).remove(function(err,data){
         if (err) throw err;
         req.flash('success_msg','Todo Removed');
-        res.json(data);
-    });
-});
-
-router.get("/:id", ensureAuthenticated, function(req,res){
-    Todo.findOne({_id: req.params.id},function(error,doc){
-        if(error) throw error;
-        res.json(doc);
-    });
-});
-
-router.put("/:id", ensureAuthenticated, function(req,res){    
-    Todo.findOneAndUpdate({_id: req.params.id},{ $set:{item:req.body.item}}).exec(function(error,doc){
-        if(error) throw error;
-        req.flash('success_msg','Todo Updated');
-        res.json(doc);
+        //res.json(data);
+        res.redirect('/todos');
     });
 });
 
